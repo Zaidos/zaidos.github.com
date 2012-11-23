@@ -64,7 +64,6 @@ em, i {font-style: italic;}
 /* Lists */
 ul {
   list-style: outside disc;
-  margin: 1em 0 1.5em 1.5em;
 }
 
 ol {
@@ -176,10 +175,9 @@ Header
   line-height: 30px;
   margin: 0 auto 2em auto;
   padding: 0;
-  text-align: center;
 }
 
-#banner nav ul {list-style: none; margin: 0 auto; width: 800px;}
+#banner nav ul {list-style: none; margin: 0; width: 800px;}
 #banner nav li {float: left; display: inline; margin: 0;}
 
 #banner nav a:link, #banner nav a:visited {
