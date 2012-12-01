@@ -47,7 +47,7 @@
       <a href="artisan-part-1.html" rel="bookmark" title="Link to artisan, part 1">artisan, part 1</a>
     </h1>
     <h6>
-      <abbr class="published" title="2012-12-01T04:05:17">
+      <abbr class="published" title="2012-12-01T10:39:05">
         <em>Sat 01 December 2012</em>
       </abbr>
     </h6>
@@ -63,7 +63,12 @@
 <p>the best example of an application that does one thing well and within the threshold of one action is <a href="https://www.google.com/">google</a>. as a user, i can get search results <strong>immediately</strong> as i start typing on the keyboard. this is further enhanced by the technology behind google instant. if the user's browser supports it, the searcher never even has to fully complete their action (by pressing enter or clicking the search button) to get value out of the product. google has the highest conversion rate of any landing page. 100 fucking percent. i guess the only thing better is internet explorer for chrome or firefox.</p>
 <h3>as an developer / implementor</h3>
 <p><strong>minimize start to result time</strong></p>
-<p>got an API? good, i should be able to get data out of it in less than 10 seconds. using oauth? fine, 4 hours max. 3.99 to implement some shitty oauth provider and the last 10 seconds to pull the data. from experience, developers tend to get angry easily, especially when  having to work with some weird shitty code that doesn't really do what it says it does or when it takes eight centuries setup a simple GET request.</p>
+<p>got an API? good, i should be able to get data out of it in less than 10
+seconds. using oauth? fine, 4 hours max. 3.99 to implement some shitty oauth
+provider and the last 10 seconds to pull the data. from experience, developers
+tend to get angry easily, especially when  having to work with some weird shitty
+code that doesn't really do what it says it does or when it takes eight
+centuries to setup a simple GET request.</p>
 <p>who implements the consumption of your service? developers do. so if your service, code, library, whatever causes implementors to get angry, you are going to have a bad time. try to reduce the amount of setup required to to perform actions against your API. things like authentication shouldn't be required for data that isn't private.</p>
 <p>a great example of an easy to use API is <a href="https://www.opencnam.com/">OpenCNAM</a>. its so easy, you can literally just drag the example text from the home page into your browser url bar and get results. its like magic, only real. for actual code implementation, the setup is just as easy. a simple GET requests with the phone number as a query and you get your data. need authentication? just add it through HTTP auth or send it as query parameters. its all good.</p>
 <p><strong>document. all. the. things</strong></p>
@@ -75,7 +80,8 @@
 </ul>
 <p><strong>external dependencies should be nearly invisible in code</strong></p>
 <p>if a software dependency requires a lot of management code within your own software code, it shoulder either be abstracted into some form of a client, or have the dependency re-written if possible. ideally, the dependent software should perform in reverse by hooking into your application's code rather than the other way around.</p>
-<p>in preferable cases, i lean towards the rewriting, <strong>especially</strong> if that software is suppose to be consumed by other code. in reality thought, it is usually some 1985 legacy code. in which case you should wrap it in your own code. providing a single entry point for any external code or services allows for easy stubbing, mocking and substitution when designing tests around external stuff.</p>
+<p>in preferable cases, i lean towards the rewriting, <strong>especially</strong> if that
+software is supposed to be consumed by other code. in reality thought, it is usually some 1985 legacy code. in which case you should wrap it in your own code. providing a single entry point for any external code or services allows for easy stubbing, mocking and substitution when designing tests around external stuff.</p>
 <p>in c#, <code>Interfaces</code> make it really easy to guarantee a set of methods will always be available to a given class. this allows for easy differentiation between the contract and implementation of the object.</p>
 <p>one of the best approaches to this reverse dependency thing methodology i have seen has been implemented in  <a href="http://msdn.microsoft.com/en-us/data/ef.aspx">Entity Framework</a> Code First. any plain data object can be registered to the framework, yet still remain oblivious of it. the framework generates a proxy over the actual objects, manipulating properties over reflection, and handling all database stuff without the original object knowing.</p>
 <h2>beyond the code</h2>
