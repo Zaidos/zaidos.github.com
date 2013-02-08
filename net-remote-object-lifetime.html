@@ -40,7 +40,7 @@
     </h6>
     </header>
     <div class="entry-content">
-      <p>lately, i've been digging deeper into the use of application domains within the .net framework. the APIs for <code>AppDomain</code> are actually very simple to use and the documentation provided by Microsoft is also extremelly helpful. however there were a few random problems that i ran into while trying to implement them into my code.</p>
+      <p>lately, i've been digging deeper into the use of application domains within the .net framework. the APIs for <code>AppDomain</code> are actually very simple to use and the documentation provided by Microsoft is also extremelly helpful. there were, however, a few random problems that i ran into while trying to implement them into my code.</p>
 <h1>application domains</h1>
 <p>for those who don't use .net, an application domain is a partition in the operating system's process where one or more applications reside. all objects within the same app domain communicate directly with each other. any object that attempts to communicate with a different application domain is either copied directly or communicates through a proxy. unless implemented from the <code>MarshalByRefObject</code>, an object is implicitly marshal by value and will be copied. for most use cases however, you will want your objects to inherit from <code>MarshalByRefObject</code> to prevent errors. </p>
 <p>the very first time a remote domain attempts to communicate with a <code>MarshalByRefObject</code>, a proxy will be created and passed into the calling domain. any future calls to that object will be passed through the newly created proxy object.</p>
@@ -48,7 +48,7 @@
 <p>the project that i am currently working on requires heavy use of application domains. the core of the application is very simple shell. it communicates with a server to fetch different sets of assemblies, loads them into their respected application domains, executes runnable code and delegates instructions from the server into the running tasks within the domains.</p>
 <p>the purpose of the application domains are to provide a way to isolate and execute any externally loaded code without affecting the application itself. this provides an extra safeguard against any unstable code that could bring down the main process. another benefit of application domains is the ability to modify the internals of an application without shutting it down. this actually doubles as a benefit, as it allows for other domains to continue working while a new one is created!</p>
 <h1>a wild remoting exception appears</h1>
-<p>implementing the actual application domains was relatively easy. i am able to spin up a large amount of domains and bring them down pretty quickly too. testing as well seemed to indicate that everything was working as intended.</p>
+<p>implementing the actual application domains was relatively easy. i was able to spin up a large amount of domains and bring them down pretty quickly too. testing as well seemed to indicate that everything was working as intended.</p>
 <p>but like anything ever, something will always go wrong :)</p>
 <p>during testing, i had left the actual process running for a long time (30+ minutes) and came back to an errored out screen.</p>
 <p>the error message looked something like this:</p>
@@ -71,7 +71,7 @@
 </pre></div>
 
 
-<p>overriding the <code>InitializeLifetimeService</code> method from <code>MarshalByRefObject</code> seem to do the trick. however, by looking at the code sample, i can already tell this will cause some problems. when returning null, the object will be kept alive forever, possibly leading to memory issues.</p>
+<p>overriding the <code>InitializeLifetimeService</code> method from <code>MarshalByRefObject</code> seem to do the trick. however, by looking at the code sample, i could already tell this would cause some problems. when returning null, the object will be kept alive forever, possibly leading to memory issues.</p>
 <p>a better implementation would be to create the lease object and return that. this will require some fine tuning so that you dont end up with too short or too long of a lifetime.</p>
 <div class="codehilite"><pre><span class="n">public</span> <span class="n">override</span> <span class="n">object</span> <span class="nf">InitializeLifetimeService</span><span class="p">()</span>
 <span class="p">{</span>
@@ -102,9 +102,10 @@
 </pre></div>
 
 
-<p>note however that this applies the policy to all remote objects within your application. in my case, i have multiple remote objects with different lifetime requirements, so this implementation is no use.</p>
+<p>note however that this applies the policy to all remote objects within your application. in my case, i have multiple remote objects with different lifetime requirements, so this implementation is of no use.</p>
 <h1>final thoughts</h1>
 <p>after running through different scenarios, i believe the best approach is to override the <code>InitializeLifetimeService</code> method and return a lease object with a manually set policy. this allows me to really control the duration of each type of object that i'll be using.</p>
+<p>the application will be launching shortly. i will be returning with a post about the successes and failures of the project :)</p>
 <p>if you have any thoughts or better ideas, feel free to email me or contact me on twitter <a href="https://twitter.com/zaidos">@zaidos</a></p>
     </div>
   </article>
