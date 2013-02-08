@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>zaidox - writing </title>
+    <title>.net remote object lifetime</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
 
         
     <!--[if IE]>
@@ -15,24 +15,31 @@
   <body>
     <header id="banner">
     <h1>
-      <a href="..">zaidox</a>
+      <a href=".">zaidox</a>
           </h1>
     <nav>
     <ul>
-            <li class="active"><a href="../category/writing.html">writing</a></li>
-                        <li><a href="../pages/about.html">about</a></li>
-            <li><a href="../pages/resume.html">resume</a></li>
+            <li class="active"><a href="./category/writing.html">writing</a></li>
+                        <li><a href="./pages/about.html">about</a></li>
+            <li><a href="./pages/resume.html">resume</a></li>
                 </ul>
     </nav>
     </header>
 
     <div class="content">
-          <aside id="featured">
-    <article>
+      <section id="featured">
+  <article>
+    <header>
     <h1 class="entry-title">
-      <a href="../net-remote-object-lifetime.html">.net remote object lifetime</a>
+      <a href="net-remote-object-lifetime.html" rel="bookmark" title="Link to .net remote object lifetime">.net remote object lifetime</a>
     </h1>
-    <p>
+    <h6>
+      <abbr class="published" title="2013-02-07T00:00:00">
+        <em>Thu 07 February 2013</em>
+      </abbr>
+    </h6>
+    </header>
+    <div class="entry-content">
       <p>lately, i've been digging deeper into the use of application domains within the .net framework. the APIs for <code>AppDomain</code> are actually very simple to use and the documentation provided by Microsoft is also extremelly helpful. however there were a few random problems that i ran into while trying to implement them into my code.</p>
 <h1>application domains</h1>
 <p>for those who don't use .net, an application domain is a partition in the operating system's process where one or more applications reside. all objects within the same app domain communicate directly with each other. any object that attempts to communicate with a different application domain is either copied directly or communicates through a proxy. unless implemented from the <code>MarshalByRefObject</code>, an object is implicitly marshal by value and will be copied. for most use cases however, you will want your objects to inherit from <code>MarshalByRefObject</code> to prevent errors. </p>
@@ -99,10 +106,10 @@
 <h1>final thoughts</h1>
 <p>after running through different scenarios, i believe the best approach is to override the <code>InitializeLifetimeService</code> method and return a lease object with a manually set policy. this allows me to really control the duration of each type of object that i'll be using.</p>
 <p>if you have any thoughts or better ideas, feel free to email me or contact me on twitter <a href="https://twitter.com/zaidos">@zaidos</a></p>
-    </p>
-    </article>
-  </aside>
-        </div>
+    </div>
+  </article>
+</section>
+    </div>
 
     <footer>
         <ul class="footer">
