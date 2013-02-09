@@ -42,7 +42,7 @@ a img {border: 0px; text-decoration: none;}
 a:link, a:visited {
   color: orange;
   padding: 0 1px;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover, a:active {
   background-color: orange;
@@ -64,6 +64,10 @@ em, i {font-style: italic;}
 /* Lists */
 ul {
   list-style: inside disc;
+}
+
+section ul {
+  list-style: inside none;
 }
 
 ol {
@@ -88,9 +92,11 @@ dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
 pre{
+  background-color: #fefefe;
   border: 1px solid #ffa500;
   margin: 10px 0px;
   overflow: auto;
+  padding: 15px;
   font-family: Droid Sans, sans-serif;
 }
 
