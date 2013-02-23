@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Running tests on Heroku (with Postgression)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="medium" content="blog">
+    <meta name="description" content="the blog of alven diaz">
+    <link rel="stylesheet" href="../theme/css/main.css" type="text/css" />
+
+        
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  </head>
+
+  <body>
+    <header id="banner">
+    <h1>
+      <a href="..">zaidox</a>
+          </h1>
+    <nav>
+    <ul>
+            <li class="active"><a href="../category/writing.html">Writing</a></li>
+                        <li><a href="../pages/about.html">About</a></li>
+            <li><a href="../pages/resume.html">Resume</a></li>
+                </ul>
+    </nav>
+    </header>
+
+    <div class="content">
+      <section id="featured">
+  <article>
+    <header>
+    <h1 class="entry-title">
+      <a href="running-tests-on-heroku-with-postgression.html" rel="bookmark" title="Link to Running tests on Heroku (with Postgression)">Running tests on Heroku (with Postgression)</a>
+    </h1>
+    <h6>
+      <abbr class="published" title="2013-02-21T00:00:00">
+        <em>Thu 21 February 2013</em>
+      </abbr>
+    </h6>
+    </header>
+    <div class="entry-content">
+      <p>A couple of weeks ago, Randall (<a href="https://twitter.com/rdegges">@rdegges</a>) and I launched <a href="http://www.postgression.com/">postgression</a>, a free simple web API that provides a temporary PostgreSQL database for testing. Postgression aims to reduce the overhead in setting up a database for your application's tests across all your development environments.</p>
+<h1>Use cases</h1>
+<p>There was a lot of positive and helpful feedback that was received from the Hacker News submission. Several users brought up some very interesting questions and concerns regarding the speed and security of the service. </p>
+<ul>
+<li>Speeds up your tests</li>
+<li>Physical location doesn't matter</li>
+</ul>
+<h1>The application</h1>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;data_mapper&#39;</span>
+
+<span class="k">class</span> <span class="nc">Post</span>
+  <span class="kp">include</span> <span class="ss">DataMapper</span><span class="p">:</span><span class="ss">:Resource</span>
+
+  <span class="n">property</span> <span class="ss">:id</span><span class="p">,</span> <span class="no">Serial</span>
+  <span class="n">property</span> <span class="ss">:title</span><span class="p">,</span> <span class="nb">String</span>
+<span class="k">end</span>
+
+<span class="n">configure</span> <span class="k">do</span>
+  <span class="no">DataMapper</span><span class="o">.</span><span class="n">setup</span> <span class="ss">:default</span><span class="p">,</span> <span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;DATABASE_URL&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;postgres://localhost/postgression&#39;</span><span class="p">)</span>
+  <span class="no">DataMapper</span><span class="o">.</span><span class="n">finalize</span>
+  <span class="no">Post</span><span class="o">.</span><span class="n">auto_upgrade!</span>
+<span class="k">end</span>
+
+<span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+  <span class="no">Post</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="nb">p</span><span class="o">|</span> <span class="nb">p</span><span class="o">.</span><span class="n">title</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">post</span> <span class="s1">&#39;/create&#39;</span> <span class="k">do</span>
+  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">create</span> <span class="n">params</span>
+  <span class="vi">@post</span><span class="o">.</span><span class="n">title</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<h1>The spec</h1>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;web.rb&#39;</span><span class="p">)</span>
+
+<span class="nb">require</span> <span class="s1">&#39;rack/test&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;net/http&#39;</span>
+
+<span class="n">set</span> <span class="ss">:environment</span><span class="p">,</span> <span class="ss">:test</span>
+<span class="n">set</span> <span class="ss">:run</span><span class="p">,</span> <span class="kp">false</span>
+<span class="n">set</span> <span class="ss">:raise_errors</span><span class="p">,</span> <span class="kp">true</span>
+<span class="n">set</span> <span class="ss">:logging</span><span class="p">,</span> <span class="kp">false</span>
+
+<span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="ss">DataMapper</span><span class="p">:</span><span class="ss">:setup</span><span class="p">(</span><span class="ss">:default</span><span class="p">,</span> <span class="ss">Net</span><span class="p">:</span><span class="ss">:HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;api.postgression.com&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">))</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="p">{</span> <span class="no">DataMapper</span><span class="o">.</span><span class="n">auto_migrate!</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="s1">&#39;My web application&#39;</span> <span class="k">do</span>
+  <span class="kp">include</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Methods</span>
+
+  <span class="k">def</span> <span class="nf">app</span>
+    <span class="ss">Sinatra</span><span class="p">:</span><span class="ss">:Application</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">&quot;returns a new post&#39;s title&quot;</span> <span class="k">do</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;a little qwerty and </span><span class="si">#{</span><span class="nb">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2"> asdfs&quot;</span>
+
+    <span class="n">post</span> <span class="s1">&#39;/create&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:title</span> <span class="o">=&gt;</span> <span class="n">title</span> <span class="p">}</span>
+
+    <span class="n">last_response</span><span class="o">.</span><span class="n">should</span> <span class="n">be_ok</span>
+    <span class="n">last_response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">should</span> <span class="n">eql</span> <span class="n">title</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<h1>Rake</h1>
+<p>In most cases, you want your application to have a Rakefile to take care of 
+tasks that you will be running often. The following is optional, but I heavily recommend it, especially for larger projects. </p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;rspec/core/rake_task&#39;</span>
+
+<span class="ss">RSpec</span><span class="p">:</span><span class="ss">:Core</span><span class="o">::</span><span class="no">RakeTask</span><span class="o">.</span><span class="n">new</span> <span class="ss">:spec</span>  <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="o">.</span><span class="n">rspec_opts</span> <span class="o">=</span> <span class="s1">&#39;--colour -b -p --format nested&#39;</span>
+  <span class="n">t</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="s1">&#39;spec/*_spec.rb&#39;</span>
+<span class="k">end</span>
+
+<span class="n">task</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="ss">:spec</span>
+</pre></div>
+
+
+<p>The task will match any file ending in spec.rb within the spec folder and run those tests. I also added some RSpec options since I like my results to be nice and colorful.</p>
+<p>Running tests on Heroku can now be started by <code>heroku run rake [spec]</code>, instead of running the whole RSpec command with arguments.</p>
+<h1>Database problems</h1>
+<p>When I first deployed to Heroku, the dyno would immmediately crash on the first request with the following error message:</p>
+<div class="codehilite"><pre>2013-02-21T10:23:15+00:00 heroku<span class="o">[</span>web.1<span class="o">]</span>: 
+    Starting process with <span class="nb">command</span> <span class="sb">`</span>bundle <span class="nb">exec </span>ruby web.rb -p 30682<span class="sb">`</span>
+2013-02-21T10:23:23+00:00 app<span class="o">[</span>web.1<span class="o">]</span>:   
+    Is the server running on host <span class="s2">&quot;localhost&quot;</span> and accepting
+2013-02-21T10:23:23+00:00 app<span class="o">[</span>web.1<span class="o">]</span>:
+    connection.rb:79: in <span class="sb">`</span>initialize<span class="sb">`</span>: could not connect to server: 
+    Connection refused <span class="o">(</span>DataObjects::ConnectionError<span class="o">)</span>
+2013-02-21T10:23:23+00:00 app<span class="o">[</span>web.1<span class="o">]</span>:   
+    TCP/IP connections on port 5432?
+</pre></div>
+
+
+<p>I was really confused at first. I had just created the database, why the hell was it complaining?! It turns out that Heroku does not automatically promote the first database created on a new application. </p>
+<div class="codehilite"><pre><span class="nv">$ </span>heroku addons:add heroku-postgresql:dev
+    Adding heroku-postgresql:dev to sushi... <span class="k">done</span>, v69 <span class="o">(</span>free<span class="o">)</span>
+        Attached as HEROKU_POSTGRESQL_RED
+    Database has been created and is available
+
+<span class="nv">$ </span>heroku pg:promote HEROKU_POSTGRESQL_RED
+</pre></div>
+
+
+<p>Voila! The database we just created has now been promoted and can be accessed from <code>DATABASE_URL</code>.</p>
+    </div>
+  </article>
+</section>
+    </div>
+
+    <footer>
+        <ul class="footer">
+            <li class="footer"><a href="mailto:alven@zaidox.com">contact</a></li>
+                  <li class="footer"><a href="https://twitter.com/zaidos">twitter</a></li>
+            <li class="footer"><a href="http://github.com/zaidos">github</a></li>
+            <li class="footer"><a href="http://www.linkedin.com/in/zaidos">linkedin</a></li>
+          </ul>
+        </footer>
+        <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36228888-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+     </script>
+        </body>
+
+ </html>
