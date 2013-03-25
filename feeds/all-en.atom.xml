@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/all-en.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-02-07T00:00:00-08:00</updated><entry><title>.NET Remote Object Lifetime</title><link href="http://zaidox.com/net-remote-object-lifetime.html" rel="alternate"></link><updated>2013-02-07T00:00:00-08:00</updated><author><name>alven diaz</name></author><id>tag:zaidox.com,2013-02-07:net-remote-object-lifetime.html</id><summary type="html">&lt;p&gt;Lately, I have been digging deeper into the use of application domains within the .NET framework. The APIs for &lt;code&gt;AppDomain&lt;/code&gt; are actually very simple to use and the documentation provided by Microsoft is also extremelly helpful. There were, however, a few random problems that I ran into while trying to implement them into my code.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/all-en.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-03-24T00:00:00-07:00</updated><entry><title>Hourly Estimates</title><link href="http://zaidox.com/hourly-estimates.html" rel="alternate"></link><updated>2013-03-24T00:00:00-07:00</updated><author><name>alven diaz</name></author><id>tag:zaidox.com,2013-03-24:hourly-estimates.html</id><summary type="html">&lt;p&gt;A few months ago, our team switched over to Scrum, a fairly modern software
+development framework. Scrum is an implementation of the agile methodology
+that focuses on roles, sprints, backlogs, and meetings.&lt;/p&gt;
+&lt;p&gt;Lots and lots of meetings...&lt;/p&gt;
+&lt;p&gt;Anyways, besides the large spike in meetings, the basic principles of Scrum
+actually ended up fitting in quite well with how we were currently managing
+all of our software development.
+However, now that I've had a fair amount of experience with Scrum (and as a
+part-time Scrum Master), I feel that there are certain parts of the methodology
+that I don't quite buy into. Particularly, using hours to estimate tasks.&lt;/p&gt;
+&lt;h1&gt;The Scrum Task&lt;/h1&gt;
+&lt;p&gt;In Scrum, a task is a defined unit of work, usually estimated in hours. It is
+commonly believed that hourly estimates are more accurate and provide the most
+transparency. I believe this is true; however, not in software development.
+In a professional environment, a software engineer has far more
+responsibilities besides programming. A lot of these responsibilities can not
+be estimated, as they are not in control of the engineer. Even more so in a
+start up environment.&lt;/p&gt;
+&lt;p&gt;Some people recommend the use of 'ideal' (5-6) hours over 'real' (8) hours when
+estimating their tasks. Theoretically, this should account for distractions and
+various other activities (lunches, breaks, emails) for the day. However,
+these distractions are often too sporiadic in when and where they occur, and
+also the duration of the distraction.&lt;/p&gt;
+&lt;h1&gt;A Solution?&lt;/h1&gt;
+&lt;p&gt;After a few sprints, I begin to notice that most of my tasks usually ended up
+occupying a whole day. When I become aware of the pattern, a bit more thought
+provided me with a reasonable assumption as to why this was happening.&lt;/p&gt;
+&lt;p&gt;See, in any given day, a reasonably sized task (4 hours) would be completed.
+In a perfect world and an 8 hour workday, this would leave 4 hours left.
+In our world, remove 2-3 hours for lunch, emails, communication, and everything
+else, you are left with 1-2 hours in the day. Starting anything smaller than
+2 hours brings in too much task management overhead and/or requires a substantial
+amount of ramp up time. Of course, anything larger and it is better off to
+start working on it another day. Eventually, a 4 hour task ended up being a
+day's worth of work and that led me to my new conclusion:&lt;/p&gt;
+&lt;p&gt;I believe that the ideal base unit of time for software estimation is a day.
+It is appropriately sized and it works along a
+&lt;a href="http://www.paulgraham.com/makersschedule.html"&gt;Maker's schedule&lt;/a&gt;. A day
+provides a more reasonable and realistic estimate to software development, and
+the activities that revolve around it. It allows for common workplace
+distractions, as well as actual non-coding work.&lt;/p&gt;
+&lt;p&gt;I do not believe hourly estimates provide much value.
+A software project's success or failure has never come down to the hour, and
+it never should.&lt;/p&gt;</summary></entry><entry><title>.NET Remote Object Lifetime</title><link href="http://zaidox.com/net-remote-object-lifetime.html" rel="alternate"></link><updated>2013-02-07T00:00:00-08:00</updated><author><name>alven diaz</name></author><id>tag:zaidox.com,2013-02-07:net-remote-object-lifetime.html</id><summary type="html">&lt;p&gt;Lately, I have been digging deeper into the use of application domains within the .NET framework. The APIs for &lt;code&gt;AppDomain&lt;/code&gt; are actually very simple to use and the documentation provided by Microsoft is also extremelly helpful. There were, however, a few random problems that I ran into while trying to implement them into my code.&lt;/p&gt;
 &lt;h1&gt;Application Domains&lt;/h1&gt;
 &lt;p&gt;For those who are not familiar with .NET, an application domain is a partition in the operating system's process where one or more applications reside. All objects within the same application domain communicate directly with each other. Any object that attempts to communicate with a different application domain is either copied directly or communicates through a proxy. Unless implemented from the &lt;code&gt;MarshalByRefObject&lt;/code&gt;, an object is implicitly marshal by value and will be copied. For most use cases you will want your objects to inherit from &lt;code&gt;MarshalByRefObject&lt;/code&gt; to prevent errors. &lt;/p&gt;
 &lt;p&gt;The very first time a remote domain attempts to communicate with a &lt;code&gt;MarshalByRefObject&lt;/code&gt;, a proxy will be created and passed into the calling domain. Any future calls to that object will be passed through the newly created proxy object.&lt;/p&gt;
