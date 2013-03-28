@@ -2,28 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>./hourly-estimates.html</loc>
+    <loc>http://zaidox.com/hourly-estimates.html</loc>
     <priority>0.8</priority>
   </url>
 
     <url>
-    <loc>./net-remote-object-lifetime.html</loc>
+    <loc>http://zaidox.com/net-remote-object-lifetime.html</loc>
     <priority>0.8</priority>
   </url>
 
     <url>
-    <loc>./introduction.html</loc>
+    <loc>http://zaidox.com/introduction.html</loc>
     <priority>0.8</priority>
   </url>
 
   
   <url>
-    <loc>./pages/about.html</loc>
+    <loc>http://zaidox.com/pages/about.html</loc>
     <priority>1.0</priority>
   </url>
 
     <url>
-    <loc>./pages/resume.html</loc>
+    <loc>http://zaidox.com/pages/resume.html</loc>
     <priority>1.0</priority>
   </url>
 
