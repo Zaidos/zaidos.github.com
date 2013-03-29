@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/Writing.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-03-24T00:00:00-07:00</updated><entry><title>Hourly Estimates</title><link href="http://zaidox.com/hourly-estimates.html" rel="alternate"></link><updated>2013-03-24T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-03-24:hourly-estimates.html</id><summary type="html">&lt;p&gt;A few months ago, our team switched over to Scrum, a fairly modern software
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/Writing.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-03-26T00:00:00-07:00</updated><entry><title>Teaching Programming</title><link href="http://zaidox.com/teaching-programming.html" rel="alternate"></link><updated>2013-03-26T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-03-26:teaching-programming.html</id><summary type="html">&lt;p&gt;Programming can be really difficult, especially for someone that has never done
+it before. All the various languages, libraries, frameworks, patterns, and tools
+can be very intimidating for anyone new to the concept of programming. Even as
+someone slightly more experienced, it feels like there is a never ending amount
+of information being introduced daily. So many tools and frameworks come and go,
+that by the time you finally start to learn one, it has already become obsolete.&lt;/p&gt;
+&lt;p&gt;In order to survive in the field, you always have to be challenging yourself.
+Being a great programmer requires a constant balance of learning and doing. You
+must spend time practicing your craft since it is the quickest way of receiving
+feedback. At the same time, you must be constantly learning new techniques by
+reading books, blogs, communicating with peers, and reading other code.&lt;/p&gt;
+&lt;p&gt;I have found that one of the best ways to really understand something is to
+try to teach it do somebody else. Teaching provides a different perspective into
+something you might already know. Trying to simplify an explanation of an
+advanced concept that might have taken you a few years can provide you with a
+new way to implement that same concept in a more efficient or clearer way.&lt;/p&gt;
+&lt;h1&gt;Some Prior Experience&lt;/h1&gt;
+&lt;p&gt;I got my first taste of teaching when I was in university. I was initially asked
+to start tutoring students who were enrolled in Computer Science courses,
+although not necessarily Computer Science students. Most of them were actually
+Mathematics or Physics majors, with maybe one or two actually enrolled in the
+Computer Science program.&lt;/p&gt;
+&lt;p&gt;Introducing those students to programming was a wonderful experience. Many were
+filled with a curiosity, wondering how and why the computer was doing what it
+was told. Since most of the students were pursuing degrees in other fields, it
+was really exciting seeing them come up with ideas on how programming could help
+them out.&lt;/p&gt;
+&lt;p&gt;Unfortunately, you aren't always gifted with motivated individuals. A single bad
+student can really discourage you from teaching. Some just wanted to get through
+the course as quick as possible, and others just did not care (about anything).
+It is really difficult to keep up the motivation to teach, especially when you
+are exposed these kind of students often.&lt;/p&gt;
+&lt;h1&gt;Teaching again&lt;/h1&gt;
+&lt;p&gt;For the last few months, I have been helping several friends and family members
+learn how to program. Some have tried programming before, but most have never
+ventured past a simple 'Hello World' example. One of them is my father, a semi
+tech-savvy user. Two others are students, one in high school and the other at
+university. The final is in the IT industry, currently working as a System
+Administrator.&lt;/p&gt;
+&lt;p&gt;All four of them have very different motivations for wanting to learn how to
+program. My father is wanting to learn so that he can extend the capabilities
+of a piece of software (&lt;a href="http://www.microsoft.com/games/flightsimulatorx/"&gt;Flight
+Simulator&lt;/a&gt;) he uses often. One
+is ultimately in it for the money, while the others are genuinely interested in
+the characteristics and challenges that programming brings.&lt;/p&gt;
+&lt;h1&gt;Difficulties&lt;/h1&gt;
+&lt;p&gt;While there is great pleasure in teaching, coaching, and motivating someone, it
+also comes with its difficulties. Of course, it is hard enough trying to manage
+four different levels and speeds of progress.&lt;/p&gt;
+&lt;p&gt;What I have found is that a beginner programmer, especially one that has been
+around more experienced programmers, is that they try to emulate the speed of
+the more experienced one. This usually ends up hindering their learning
+progress as they tend to focus on the wrong things. They spend time playing
+around with shortcuts and code optimizations, often times not even understand
+the code they are writing.&lt;/p&gt;
+&lt;p&gt;Another thing that I have noticed is that the motivation behind wanting to learn
+plays a huge role in how persistent people are. Those that are honestly
+interested and curious about programming tend to want to explore and take
+risks. They actively pursue knowledge, and even continue to teach themselves
+when no one is around. The others tend to wait to be told what to do, or want
+answers before even thinking of the questions.&lt;/p&gt;
+&lt;p&gt;Also, I believe some people were just not meant to code. Simply put, coding is
+not for everyone. It is not a motivational or skill set issue, just some
+people's daily activities and thinking constantly pushes them away from a
+programming mindset.&lt;/p&gt;
+&lt;p&gt;Learning to program is really difficult. Teaching to program is even harder.&lt;/p&gt;</summary></entry><entry><title>Hourly Estimates</title><link href="http://zaidox.com/hourly-estimates.html" rel="alternate"></link><updated>2013-03-24T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-03-24:hourly-estimates.html</id><summary type="html">&lt;p&gt;A few months ago, our team switched over to Scrum, a fairly modern software
 development framework. Scrum is an implementation of the agile methodology
 that focuses on roles, sprints, backlogs, and meetings.&lt;/p&gt;
 &lt;p&gt;Lots and lots of meetings...&lt;/p&gt;
