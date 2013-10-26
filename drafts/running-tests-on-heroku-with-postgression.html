@@ -60,7 +60,7 @@
 <li>Physical location doesn't matter</li>
 </ul>
 <h1>The application</h1>
-<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
 <span class="nb">require</span> <span class="s1">&#39;data_mapper&#39;</span>
 
 <span class="k">class</span> <span class="nc">Post</span>
@@ -88,7 +88,7 @@
 
 
 <h1>The spec</h1>
-<div class="codehilite"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;web.rb&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;web.rb&#39;</span><span class="p">)</span>
 
 <span class="nb">require</span> <span class="s1">&#39;rack/test&#39;</span>
 <span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
@@ -126,7 +126,7 @@
 <h1>Rake</h1>
 <p>In most cases, you want your application to have a Rakefile to take care of 
 tasks that you will be running often. The following is optional, but I heavily recommend it, especially for larger projects. </p>
-<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;rspec/core/rake_task&#39;</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;rspec/core/rake_task&#39;</span>
 
 <span class="ss">RSpec</span><span class="p">:</span><span class="ss">:Core</span><span class="o">::</span><span class="no">RakeTask</span><span class="o">.</span><span class="n">new</span> <span class="ss">:spec</span>  <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
   <span class="n">t</span><span class="o">.</span><span class="n">rspec_opts</span> <span class="o">=</span> <span class="s1">&#39;--colour -b -p --format nested&#39;</span>
@@ -141,7 +141,7 @@ tasks that you will be running often. The following is optional, but I heavily r
 <p>Running tests on Heroku can now be started by <code>heroku run rake [spec]</code>, instead of running the whole RSpec command with arguments.</p>
 <h1>Database problems</h1>
 <p>When I first deployed to Heroku, the dyno would immmediately crash on the first request with the following error message:</p>
-<div class="codehilite"><pre>2013-02-21T10:23:15+00:00 heroku<span class="o">[</span>web.1<span class="o">]</span>: 
+<div class="highlight"><pre>2013-02-21T10:23:15+00:00 heroku<span class="o">[</span>web.1<span class="o">]</span>: 
     Starting process with <span class="nb">command</span> <span class="sb">`</span>bundle <span class="nb">exec </span>ruby web.rb -p 30682<span class="sb">`</span>
 2013-02-21T10:23:23+00:00 app<span class="o">[</span>web.1<span class="o">]</span>:   
     Is the server running on host <span class="s2">&quot;localhost&quot;</span> and accepting
@@ -154,7 +154,7 @@ tasks that you will be running often. The following is optional, but I heavily r
 
 
 <p>I was really confused at first. I had just created the database, why the hell was it complaining?! It turns out that Heroku does not automatically promote the first database created on a new application. </p>
-<div class="codehilite"><pre><span class="nv">$ </span>heroku addons:add heroku-postgresql:dev
+<div class="highlight"><pre><span class="nv">$ </span>heroku addons:add heroku-postgresql:dev
     Adding heroku-postgresql:dev to sushi... <span class="k">done</span>, v69 <span class="o">(</span>free<span class="o">)</span>
         Attached as HEROKU_POSTGRESQL_RED
     Database has been created and is available

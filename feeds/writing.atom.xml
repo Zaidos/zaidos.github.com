@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/Writing.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-03-26T00:00:00-07:00</updated><entry><title>Teaching Programming</title><link href="http://zaidox.com/teaching-programming.html" rel="alternate"></link><updated>2013-03-26T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-03-26:teaching-programming.html</id><summary type="html">&lt;p&gt;Programming can be really difficult, especially for someone that has never done
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/writing.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-10-25T00:00:00-07:00</updated><entry><title>OS X Mavericks, virtualenv, and pip</title><link href="http://zaidox.com/os-x-mavericks-virtualenv-and-pip.html" rel="alternate"></link><updated>2013-10-25T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-10-25:os-x-mavericks-virtualenv-and-pip.html</id><summary type="html">&lt;p&gt;If you are a python developer and have recently updated to the new OS X
+Mavericks, you might be getting a series of new error messages. Here are a few
+steps that may help you fix some of the problems that have come from the new
+update.&lt;/p&gt;
+&lt;p&gt;However, before you begin make sure you have updated to the latest version
+of the operating system, as well as Xcode Command Line Tools.&lt;/p&gt;
+&lt;p&gt;You can install the Xcode Command Line tools directly from the CLI:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;xcode-select --install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;distribution&lt;/h1&gt;
+&lt;p&gt;The very first problem after upgrading was a &lt;code&gt;DistributionNotFound&lt;/code&gt;
+exception being through by pip. Since I have my terminal setup to use ZSH, it
+attempts to source &lt;code&gt;virtualenvwrapper.sh&lt;/code&gt; on startup. When launching iTerm, I
+was immediately shown the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  File &lt;span class="s2"&gt;&amp;quot;/usr/local/bin/pip&amp;quot;&lt;/span&gt;, line 5, in
+    from pkg_resources import load_entry_point
+  File &lt;span class="s2"&gt;&amp;quot;/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py&amp;quot;&lt;/span&gt;, line 2603, in
+    working_set.require&lt;span class="o"&gt;(&lt;/span&gt;__requires__&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;&amp;quot;/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py&amp;quot;&lt;/span&gt;, line 666, in require
+    &lt;span class="nv"&gt;needed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; self.resolve&lt;span class="o"&gt;(&lt;/span&gt;parse_requirements&lt;span class="o"&gt;(&lt;/span&gt;requirements&lt;span class="o"&gt;))&lt;/span&gt;
+  File &lt;span class="s2"&gt;&amp;quot;/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py&amp;quot;&lt;/span&gt;, line 565, in resolve
+    raise DistributionNotFound&lt;span class="o"&gt;(&lt;/span&gt;req&lt;span class="o"&gt;)&lt;/span&gt;  &lt;span class="c"&gt;# XXX put more info here&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The error message was a little unhelpful, and some of the Google search results
+were either outdated or incomplete. However, I was able to put together a few
+pieces of information on my Twitter feed from other developers encountering the
+same problem. My actual problem was that my machine's installation of
+&lt;code&gt;setuptools&lt;/code&gt; and &lt;code&gt;distribute&lt;/code&gt; was outdated. The following commands download
+ez_setup securely and update your installation:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+&lt;span class="nv"&gt;$ &lt;/span&gt;sudo python ez_setup.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;virtualenv wrapper&lt;/h1&gt;
+&lt;p&gt;After fixing the original problem around distribution error message, I
+encountered another problem with &lt;code&gt;virtualenvwrapper&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;/usr/bin/python: No module named virtualenvwrapper
+virtualenvwrapper.sh: There was a problem running the initialization hooks.
+
+If Python could not import the module virtualenvwrapper.hook_loader,
+check that virtualenv has been installed &lt;span class="k"&gt;for&lt;/span&gt;
+&lt;span class="nv"&gt;VIRTUALENVWRAPPER_PYTHON&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python and that PATH is
+&lt;span class="nb"&gt;set &lt;/span&gt;properly.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This one actually turned out to be an easy fix. I just needed to force a
+reinstall of &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;virtualenvwrapper&lt;/code&gt; with the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo easy_install pip
+&lt;span class="nv"&gt;$ &lt;/span&gt;sudo pip install --upgrade virtualenvwrapper
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Teaching Programming</title><link href="http://zaidox.com/teaching-programming.html" rel="alternate"></link><updated>2013-03-26T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-03-26:teaching-programming.html</id><summary type="html">&lt;p&gt;Programming can be really difficult, especially for someone that has never done
 it before. All the various languages, libraries, frameworks, patterns, and tools
 can be very intimidating for anyone new to the concept of programming. Even as
 someone slightly more experienced, it feels like there is a never ending amount
@@ -148,7 +204,7 @@ it never should.&lt;/p&gt;</summary></entry><entry><title>.NET Remote Object Lif
 &lt;p&gt;Implementing the actual application domains proved relatively easy. I was able to spin up a large amount of domains and bring them down pretty quickly too. Testing as well seemed to indicate that everything was working as intended.&lt;/p&gt;
 &lt;p&gt;But like any piece of code, something will always go wrong :)&lt;/p&gt;
 &lt;p&gt;During testing, I had left the actual process running for a long time (30+ minutes) and came back to an errored out screen. The error message looked something like this:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;RemotingException&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;RemotingException&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
 &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/asdjf3_random_nasdfj_numbers_and_jf392j3_stuff.rem&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;has&lt;/span&gt; &lt;span class="n"&gt;been&lt;/span&gt; &lt;span class="n"&gt;disconnected&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;does&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;exist&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -160,7 +216,7 @@ it never should.&lt;/p&gt;</summary></entry><entry><title>.NET Remote Object Lif
 &lt;p&gt;Since there is no guarantee that an object will exist once it leaves its domain, all MarshalByRefObjects implement a lifetime service. The lifetime service is an &lt;code&gt;ILease&lt;/code&gt; type that controls the lifetime policy for a particular instance of an object. Unless specified, a remote object's lifetime is five minutes and will be released from memory if there is no activity during that time.&lt;/p&gt;
 &lt;h1&gt;Overriding the lifetime service&lt;/h1&gt;
 &lt;p&gt;the quickest solution is to implement the following:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;override&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="nf"&gt;InitializeLifetimeService&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;override&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="nf"&gt;InitializeLifetimeService&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -169,7 +225,7 @@ it never should.&lt;/p&gt;</summary></entry><entry><title>.NET Remote Object Lif
 
 &lt;p&gt;Overriding the &lt;code&gt;InitializeLifetimeService&lt;/code&gt; method from &lt;code&gt;MarshalByRefObject&lt;/code&gt; seem to do the trick. However, by looking at the code sample, I could already tell this would cause some problems. When returning null, the object will be kept alive forever, possibly leading to memory issues.&lt;/p&gt;
 &lt;p&gt;A better implementation would be to create the lease object and return that. This will require some fine tuning so that you dont end up with too short or too long of a lifetime.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;override&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="nf"&gt;InitializeLifetimeService&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;override&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="nf"&gt;InitializeLifetimeService&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;lease&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ILease&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InitializeLifetimeService&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
@@ -186,7 +242,7 @@ it never should.&lt;/p&gt;</summary></entry><entry><title>.NET Remote Object Lif
 
 
 &lt;p&gt;This can also be done through the application's config:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
   &lt;span class="nt"&gt;&amp;lt;system.runtime.remoting&amp;gt;&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;lt;application&amp;gt;&lt;/span&gt;
       &lt;span class="nt"&gt;&amp;lt;lifetime&lt;/span&gt; &lt;span class="na"&gt;leaseTime=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1M&amp;quot;&lt;/span&gt; 
