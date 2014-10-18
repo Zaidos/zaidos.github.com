@@ -1,5 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/all.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2013-10-25T00:00:00-07:00</updated><entry><title>OS X Mavericks, virtualenv, and pip</title><link href="http://zaidox.com/os-x-mavericks-virtualenv-and-pip.html" rel="alternate"></link><updated>2013-10-25T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-10-25:os-x-mavericks-virtualenv-and-pip.html</id><summary type="html">&lt;p&gt;If you are a python developer and have recently updated to the new OS X
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Zaidox</title><link href="http://zaidox.com/" rel="alternate"></link><link href="http://zaidox.com/feeds/all.atom.xml" rel="self"></link><id>http://zaidox.com/</id><updated>2014-10-17T00:00:00-07:00</updated><entry><title>Notes to an Engineer</title><link href="http://zaidox.com/notes-to-an-engineer.html" rel="alternate"></link><updated>2014-10-17T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2014-10-17:notes-to-an-engineer.html</id><summary type="html">&lt;p&gt;These are some notes I wish I had understood early in my career. They provide 
+great overall principles and carry over into other fields besides software
+engineering.&lt;/p&gt;
+&lt;h2&gt;General Engineering&lt;/h2&gt;
+&lt;h3&gt;Investigate the task at hand rigorously&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Try to get as much information as possible, from anyone or anything, about
+what you are about to do.&lt;/li&gt;
+&lt;li&gt;It is your responsibility to accurately model something from the real world
+into code. As an engineer, you want to code, but remember that all the real
+work comes before your hands even touch a keyboard. This is where your true
+value comes from.&lt;/li&gt;
+&lt;li&gt;Understanding the domain will allow you to overcome many of the hurdles you
+might encounter during development. Try to develop the best abstraction for the
+current problem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Identify who is affected by the work you are doing&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;If you are building for yourself, then only you know what is expected.
+However, you are almost always building software to provide value for someone
+else (open source, clients, customers, etc.).&lt;/li&gt;
+&lt;li&gt;To most people, what you do is magic. You have a great privilege and
+responsibility in being able to create systems that people can use. Learn to
+set expectations of what you can and can not do. This will make you the most
+reliable person on the team.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Identify who, what and when status should be communicated&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;There will always be aspects involved in creation that are not under your
+control. Know that this will happen, but do not be afraid to communicate that
+things did not go according to plan.&lt;/li&gt;
+&lt;li&gt;Really understand what information you need to convey. You need to
+understand your audience, so that they can understand you.&lt;/li&gt;
+&lt;li&gt;It will always be difficult to assess what needs to be communicated. It is
+better to lean towards more verbosity, but know that a miscommunication can
+have dire consequences.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Understand the consequences of software decision making&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Understand that any technology you bring in to your organization is now your
+responsibility (frameworks, platforms, libraries). Although the software was
+produced by a third party, you are the one that will benefit from or pay for
+the bugs or debt the technology brings.&lt;/li&gt;
+&lt;li&gt;Don't always give into the latest flavor of the month technologies. These
+technologies were created and adopted by the people that had the problem that
+the software intends to solve. In most cases, that is not you.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;By the very nature of the word, technology will always be new&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Don't put too much emphasis on what you know or have done with a specific
+technology. Learn the valuable lessons, but always be willing to redefine what
+you know.&lt;/li&gt;
+&lt;li&gt;Understand programming and computer science fundamentals, as those are one of
+the few skill sets that actually carry over through any new or old technology.&lt;/li&gt;
+&lt;li&gt;ABC: Always be coding. Never get comfortable with where you are, by that
+point you are already behind. It is up to you to make sure that never happens.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A lot of these have helped me over the last few years. While I view them as
+valuable now, I am open to the possibility of improving them over time.&lt;/p&gt;
+&lt;h2&gt;Startup Engineering&lt;/h2&gt;
+&lt;h3&gt;Productivity is often knowing what not to do&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;At the end of the day, the only advantage you have is speed. You will often
+have to fight the urge to try to solve problems you don't have and might
+never have: scaling, refactoring, UI tweaks, features, etc.&lt;/li&gt;
+&lt;li&gt;If it is a real problem, it will happen again. If it doesn't, then it is a
+problem not worth solving.&lt;/li&gt;
+&lt;li&gt;Learn what and when to optimize. Avoid premature optimization. It is better
+to understand the pains of problems, so that you can understand what the
+solution needs to be.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Everything you build will need to change&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;You can shape the future, but you can never predict it. Since you are
+modeling logic for a business that is changing, understand that the code base
+will also have to change.&lt;/li&gt;
+&lt;li&gt;A tower is built from the ground up. It is important to have a good
+foundation. However, your responsibility right now is identifying to the
+organization that the ground they are on is actually land and not water.&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>OS X Mavericks, virtualenv, and pip</title><link href="http://zaidox.com/os-x-mavericks-virtualenv-and-pip.html" rel="alternate"></link><updated>2013-10-25T00:00:00-07:00</updated><author><name>Alven Diaz</name></author><id>tag:zaidox.com,2013-10-25:os-x-mavericks-virtualenv-and-pip.html</id><summary type="html">&lt;p&gt;If you are a python developer and have recently updated to the new OS X
 Mavericks, you might be getting a series of new error messages. Here are a few
 steps that may help you fix some of the problems that have come from the new
 update.&lt;/p&gt;

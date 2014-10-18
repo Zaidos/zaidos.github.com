@@ -63,6 +63,7 @@ em, i {font-style: italic;}
 /* Lists */
 ul {
   list-style: inside disc;
+  margin-bottom: 20px;
 }
 
 section ul {
